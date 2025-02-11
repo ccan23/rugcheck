@@ -9,7 +9,7 @@ class RugCheckData:
     def __init__(self, data: dict):
         for key, value in data.items():
             if isinstance(value, dict):
-                value = RugCheckData(value)  # Recursively wrap nested dictionaries
+                value = RugCheckData(value)
             elif isinstance(value, list):
                 value = [RugCheckData(item) if isinstance(item, dict) else item for item in value]
             setattr(self, key, value)
@@ -22,9 +22,9 @@ class RugCheckData:
         """Convert back to a standard dictionary."""
         def convert(value):
             if isinstance(value, RugCheckData):
-                return value.to_dict()  # Recursively flatten RugCheckData
+                return value.to_dict()
             elif isinstance(value, list):
-                return [convert(item) for item in value]  # Handle lists of objects
+                return [convert(item) for item in value]
             return value
 
         return {key: convert(value) for key, value in self.__dict__.items()}
@@ -41,9 +41,9 @@ class RugCheckData:
         """Provide clean, readable output."""
         return repr(self.to_dict())
 
-class RugCheck:
+class rugcheck:
     """
-    RugCheck: A simple Python wrapper for interacting with the RugCheck API.
+    rugcheck: A simple Python wrapper for interacting with the RugCheck API.
 
     This class provides easy access to token-related risk assessments, including liquidity, holder risks, 
     and other important factors that could indicate a rug pull or scam. It allows users to fetch data,
@@ -55,10 +55,10 @@ class RugCheck:
         votes (dict or None): The token's voting data (fetched if `get_votes=True`).
 
     Usage:
-        >>> from rugcheck import RugCheck
+        >>> from rugcheck import rugcheck
         
         >>> token = '6p6xgHyF7AeE6TZkSmFsko444wqoP15icUSqi2jfGiPN'
-        >>> rc = RugCheck(token)
+        >>> rc = rugcheck(token)
     """
 
     def __init__(self, token_address: str, get_price: bool = False, get_votes: bool = False):
@@ -68,8 +68,8 @@ class RugCheck:
         for key, value in self._wrapped_data.__dict__.items():
             setattr(self, key, value)
 
-        setattr(self, 'price', self.__fetch_price()) if get_price else None
-        setattr(self, 'votes', self.__fetch_votes()) if get_votes else None
+        self.price = self.__fetch_price() if get_price else None
+        self.votes = RugCheckData(self.__fetch_votes()) if get_votes else None
 
     def __fetch_data(self, url: str) -> dict:
         """Fetch data from an endpoint."""
@@ -78,7 +78,6 @@ class RugCheck:
         if response and response.status_code == 200:
             return response.json()
         return {}
-    
     
     def __fetch_report(self):
         return self.__fetch_data(f'https://api.rugcheck.xyz/v1/tokens/{self.token_address}/report')
