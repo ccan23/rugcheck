@@ -28,14 +28,14 @@ pip install rugcheck
 Check any token with ease:
 
 ```python
-from rugcheck import RugCheck
+from rugcheck import rugcheck
 
 token = '6p6xgHyF7AeE6TZkSmFsko444wqoP15icUSqi2jfGiPN'
-rc = RugCheck(token)
+rc = rugcheck(token)
 ```
 
 ## 🔍 Get a Summary
-You can use `rc.summary` to get the token's summary as a Python dictionary or just print the `RugCheck` object for an instant, human-readable overview:
+You can use `rc.summary` to get the token's summary as a Python dictionary or just print the `rugcheck` object for an instant, human-readable overview:
 ```text
 >>> print(rc)
 Name: OFFICIAL TRUMP (TRUMP)
