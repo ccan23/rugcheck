@@ -25,28 +25,29 @@ pip install rugcheck
 ```
 
 ## 🚀 How to Use It
-Check any token with ease:
 
-```python
-from rugcheck import rugcheck
-
-token = '6p6xgHyF7AeE6TZkSmFsko444wqoP15icUSqi2jfGiPN'
-rc = rugcheck(token)
+### Using the Command-Line Interface (CLI)
+After installation, you can use the rugcheck command directly in your terminal to get quick summary.
+```bash
+rugcheck <token_address>
 ```
 
-## 🔍 Get a Summary
-You can use `rc.summary` to get the token's summary as a Python dictionary or just print the `rugcheck` object for an instant, human-readable overview:
+Example:
+```bash
+rugcheck 6p6xgHyF7AeE6TZkSmFsko444wqoP15icUSqi2jfGiPN
+```
+
+Output:
 ```text
->>> print(rc)
 Name: OFFICIAL TRUMP (TRUMP)
 Rugged: No
 Result: Danger
-Risk Score: 18717
+Risk Score: 18715
 Mint Address: 6p6xgHyF7AeE6TZkSmFsko444wqoP15icUSqi2jfGiPN
-Total Market Liquidity: $454,326,308.40
+Total Market Liquidity: $458,448,342.48
 
 Risks:
-  - Top 10 holders high ownership (Level: danger, Score: 9298)
+  - Top 10 holders high ownership (Level: danger, Score: 9296)
     Description: The top 10 users hold more than 70% token supply
   - Single holder ownership (Level: danger, Score: 8000)
     Description: One user holds a large amount of the token supply
@@ -58,6 +59,16 @@ Links:
   No links provided.
 
 Detected At: 2025-01-17T14:27:21.13275916Z
+```
+
+### Using It as a Python Module
+Check any token with ease:
+
+```python
+from rugcheck import rugcheck
+
+token = '6p6xgHyF7AeE6TZkSmFsko444wqoP15icUSqi2jfGiPN'
+rc = rugcheck(token)
 ```
 
 ## 🔑 What’s Inside?
