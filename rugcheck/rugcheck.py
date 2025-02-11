@@ -77,7 +77,9 @@ class rugcheck:
         response = requests.get(url=url, headers=headers)
         if response and response.status_code == 200:
             return response.json()
-        return {}
+        else:
+            print(response.json())
+            exit()
     
     def __fetch_report(self):
         return self.__fetch_data(f'https://api.rugcheck.xyz/v1/tokens/{self.token_address}/report')
